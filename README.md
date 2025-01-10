@@ -1,7 +1,7 @@
 
-# DBATU Student Dashboard
+# Student Dashboard
 
-The **DBATU Student Dashboard** is a simple web-based platform designed to provide a personalized student dashboard. It includes features such as exam schedules, time table, and options to change passwords, along with a dark/light mode theme toggle.
+The ** Student Dashboard** is a simple web-based platform designed to provide a personalized student dashboard. It includes features such as exam schedules, time table, and options to change passwords, along with a dark/light mode theme toggle.
 
 
 ## Features
