@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="shortcut icon" href="./images/dbatu.jpg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    .classroom {
+        padding: 7rem;
+        background-color:#d3d0d0;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 5rem;
+    }
+
+    .classroom h2 {
+        margin-bottom: 2rem;
+        color: #6200ea;
+    }
+
+    .assignment-form {
+        margin-bottom: 2rem;
+    }
+
+    .assignment-form h3 {
+        margin-bottom: 1rem;
+    }
+
+    .assignment-form label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .assignment-form input,
+    .assignment-form textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .assignment-form button {
+        padding: 0.5rem 1rem;
+        background-color: #6200ea;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .assignment-form button:hover {
+        background-color: #3700b3;
+    }
+
+    .assignments-list h3 {
+        margin-bottom: 1rem;
+    }
+
+    .assignments-list ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .assignments-list li {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .assignments-list li strong {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .year-section {
+        margin-bottom: 2rem;
+    }
+</style>
+<body>
+    <header>
+        <div class="logo" title="DBATU University Management System">
+            <img src="./images/dbatu.jpg" alt="DBATU Logo">
+            <h2>DB<span class="danger">A</span>TU</h2>
+        </div>
+        <div class="navbar">
+            <a href="index2.html">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="classroom.html" class="active">
+                <span class="material-icons-sharp">class</span>
+                <h3>Classroom</h3>
+            </a>
+            <a href="gradebook.html">
+                <span class="material-icons-sharp">grade</span>
+                <h3>Gradebook</h3>
+            </a>
+            <a href="attendance.html">
+                <span class="material-icons-sharp">assignment_turned_in</span>
+                <h3>Attendance</h3>
+            </a>
+            <a href="tlogin.html">
+                <span class="material-icons-sharp" onclick="logout()">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+    </header>
+    <main style="margin: 0;">
+        <section class="year-section" id="first-year">
+            <div class="classroom">
+                <h2>First Year Assignments</h2>
+                <div class="assignment-form">
+                    <h1>Add New Assignment</h1>
+                    <form id="assignmentForm1">
+                        <label for="assignmentTitle1">Title:</label>
+                        <input type="text" id="assignmentTitle1" name="assignmentTitle" required>
+                        <div class="fixed-container">
+                            <label for="assignmentDescription1">Description:</label>
+                            <textarea id="assignmentDescription1" name="assignmentDescription" required></textarea>
+                        </div>
+                        <button type="submit">Add Assignment</button>
+                    </form>
+                </div>
+                <div class="assignments-list">
+                    <h3>Assignments</h3>
+                    <ul id="assignmentsList1"></ul>
+                </div>
+            </div>
+        </section>
+        <section class="year-section" id="second-year">
+            <div class="classroom">
+                <h2>Second Year Assignments</h2>
+                <div class="assignment-form">
+                    <h1>Add New Assignment</h1>
+                    <form id="assignmentForm2">
+                        <label for="assignmentTitle2">Title:</label>
+                        <input type="text" id="assignmentTitle2" name="assignmentTitle" required>
+                        <div class="fixed-container">
+                            <label for="assignmentDescription2">Description:</label>
+                            <textarea id="assignmentDescription2" name="assignmentDescription" required></textarea>
+                        </div>
+                        <button type="submit">Add Assignment</button>
+                    </form>
+                </div>
+                <div class="assignments-list">
+                    <h3>Assignments</h3>
+                    <ul id="assignmentsList2"></ul>
+                </div>
+            </div>
+        </section>
+        <section class="year-section" id="third-year">
+            <div class="classroom">
+                <h2>Third Year Assignments</h2>
+                <div class="assignment-form">
+                    <h1>Add New Assignment</h1>
+                    <form id="assignmentForm3">
+                        <label for="assignmentTitle3">Title:</label>
+                        <input type="text" id="assignmentTitle3" name="assignmentTitle" required>
+                        <div class="fixed-container">
+                            <label for="assignmentDescription3">Description:</label>
+                            <textarea id="assignmentDescription3" name="assignmentDescription" required></textarea>
+                        </div>
+                        <button type="submit">Add Assignment</button>
+                    </form>
+                </div>
+                <div class="assignments-list">
+                    <h3>Assignments</h3>
+                    <ul id="assignmentsList3"></ul>
+                </div>
+            </div>
+        </section>
+        <section class="year-section" id="fourth-year">
+            <div class="classroom">
+                <h2>Fourth Year Assignments</h2>
+                <div class="assignment-form">
+                    <h1>Add New Assignment</h1>
+                    <form id="assignmentForm4">
+                        <label for="assignmentTitle4">Title:</label>
+                        <input type="text" id="assignmentTitle4" name="assignmentTitle" required>
+                        <div class="fixed-container">
+                            <label for="assignmentDescription4">Description:</label>
+                            <textarea id="assignmentDescription4" name="assignmentDescription" required></textarea>
+                        </div>
+                        <button type="submit">Add Assignment</button>
+                    </form>
+                </div>
+                <div class="assignments-list">
+                    <h3>Assignments</h3>
+                    <ul id="assignmentsList4"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function initializeForm(formId, listId, storageKey) {
+                const assignmentForm = document.getElementById(formId);
+                const assignmentsList = document.getElementById(listId);
+
+                // Load assignments from localStorage
+                const savedAssignments = JSON.parse(localStorage.getItem(storageKey)) || [];
+                savedAssignments.forEach(assignment => {
+                    addAssignmentToList(assignmentsList, assignment.title, assignment.description);
+                });
+
+                // Handle form submission
+                assignmentForm.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const title = assignmentForm.querySelector("[name='assignmentTitle']").value;
+                    const description = assignmentForm.querySelector("[name='assignmentDescription']").value;
+
+                    // Add assignment to the list
+                    addAssignmentToList(assignmentsList, title, description);
+
+                    // Save to localStorage
+                    savedAssignments.push({ title, description });
+                    localStorage.setItem(storageKey, JSON.stringify(savedAssignments));
+
+                    // Clear the form
+                    assignmentForm.reset();
+                });
+            }
+
+            function addAssignmentToList(assignmentsList, title, description) {
+                const li = document.createElement("li");
+                li.innerHTML = `<strong>${title}</strong><p>${description}</p>`;
+                assignmentsList.appendChild(li);
+            }
+
+            initializeForm("assignmentForm1", "assignmentsList1", "assignments1");
+            initializeForm("assignmentForm2", "assignmentsList2", "assignments2");
+            initializeForm("assignmentForm3", "assignmentsList3", "assignments3");
+            initializeForm("assignmentForm4", "assignmentsList4", "assignments4");
+        });
+    </script>
+</body>
+</html>

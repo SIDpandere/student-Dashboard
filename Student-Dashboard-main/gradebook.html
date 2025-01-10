@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradebook</title>
+    <link rel="shortcut icon" href="./images/dbatu.jpg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 200vh;
+            padding: 0;
+        }
+
+        header {
+            width: 100%;
+            background-color: #f1eff3;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px;
+            color: white;
+            padding: 10px;
+        }
+
+        header h2 {
+            margin: 0px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            margin: 0 0px;
+        }
+
+        .navbar a.active {
+            border-bottom: 2px solid white;
+        }
+
+        #profile-btn, .theme-toggler {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .container {
+            margin: 20px;
+            width: 90%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .year-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 15px;
+            padding: 20px;
+            background-color: #6200ea;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 2px solid #9d8e8e;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f9;
+            border-collapse: 1px solid #9d8e8e;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .submit-btn {
+            display: block;
+            padding: 15px 20px;
+            background-color: #19a9d9;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #005f5f;
+        }
+
+        .grade {
+            font-weight: bold;
+            color: #333;
+        }
+    </style><header>
+        <div class="logo" title="DBATU University Management System">
+            <img src="./images/dbatu.jpg" alt="DBATU Logo">
+            <h2>DB<span class="danger">A</span>TU</h2>
+        </div>
+        <div class="navbar">
+            <a href="index2.html">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="classroom.html">
+                <span class="material-icons-sharp">class</span>
+                <h3>Classroom</h3>
+            </a>
+            <a href="gradebook.html" class="active">
+                <span class="material-icons-sharp">grade</span>
+                <h3>Gradebook</h3>
+            </a>
+            <a href="attendance.html">
+                <span class="material-icons-sharp">assignment_turned_in</span>
+                <h3>Attendance</h3>
+            </a>
+            <a href="tlogin.html">
+                <span class="material-icons-sharp" onclick="logout()">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+    </header>
+</head>
+<body>
+    
+
+    <div class="year-container" onclick="showContainer('firstYearContainer')">First Year</div>
+    <div class="year-container" onclick="showContainer('secondYearContainer')">Second Year</div>
+    <div class="year-container" onclick="showContainer('thirdYearContainer')">Third Year</div>
+    <div class="year-container" onclick="showContainer('fourthYearContainer')">Fourth Year</div>
+
+    <div class="container" id="firstYearContainer">
+        <h1>First Year Gradebook</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook1"></tbody>
+        </table>
+        <button class="submit-btn" onclick="submitGrades('gradebook1', 'gradesData1')">Save Grades</button>
+    </div>
+
+    <div class="container" id="secondYearContainer">
+        <h1>Second Year Gradebook</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook2"></tbody>
+        </table>
+        <button class="submit-btn" onclick="submitGrades('gradebook2', 'gradesData2')">Save Grades</button>
+    </div>
+
+    <div class="container" id="thirdYearContainer">
+        <h1>Third Year Gradebook</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook3"></tbody>
+        </table>
+        <button class="submit-btn" onclick="submitGrades('gradebook3', 'gradesData3')">Save Grades</button>
+    </div>
+
+    <div class="container" id="fourthYearContainer">
+        <h1>Fourth Year Gradebook</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook4"></tbody>
+        </table>
+        <button class="submit-btn" onclick="submitGrades('gradebook4', 'gradesData4')">Save Grades</button>
+    </div>
+
+    <script>
+        const students = [
+            'Siddharth Pandere',
+            'Yash Joshi',
+            'Sunil Chetri',
+            'Aditya Bhosale',
+            'Eva Green',
+            'Frank Miller',
+            'Grace Lee',
+            'Henry Clark',
+            'Isabel Turner',
+            'Jack Black',
+        ];
+
+        function initializeGradebook(containerId, storageKey) {
+            const gradebook = document.getElementById(containerId);
+            const savedGrades = JSON.parse(localStorage.getItem(storageKey)) || {};
+
+            students.forEach(student => {
+                const row = document.createElement('tr');
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = student;
+                row.appendChild(nameCell);
+
+                const marksCell = document.createElement('td');
+                const marksInput = document.createElement('input');
+                marksInput.type = 'number';
+                marksInput.min = '0';
+                marksInput.max = '100';
+                marksInput.value = savedGrades[student] ? savedGrades[student].marks : '';
+                marksInput.oninput = () => updateGrade(marksInput, gradeCell);
+                marksCell.appendChild(marksInput);
+                row.appendChild(marksCell);
+
+                const gradeCell = document.createElement('td');
+                gradeCell.className = 'grade';
+                gradeCell.textContent = savedGrades[student] ? savedGrades[student].grade : '';
+                row.appendChild(gradeCell);
+
+                gradebook.appendChild(row);
+            });
+        }
+
+        function updateGrade(marksInput, gradeCell) {
+            const marks = parseFloat(marksInput.value);
+            let grade = '';
+            if (!isNaN(marks)) {
+                if (marks >= 90) {
+                    grade = 'A';
+                } else if (marks >= 80) {
+                    grade = 'B';
+                } else if (marks >= 70) {
+                    grade = 'C';
+                } else if (marks >= 60) {
+                    grade = 'D';
+                } else {
+                    grade = 'F';
+                }
+            }
+            gradeCell.textContent = grade;
+        }
+
+        function submitGrades(containerId, storageKey) {
+            const gradebook = document.getElementById(containerId);
+            const rows = gradebook.getElementsByTagName('tr');
+            const gradesData = {};
+            for (const row of rows) {
+                const studentName = row.cells[0].textContent;
+                const marks = row.cells[1].querySelector('input').value;
+                const grade = row.cells[2].textContent;
+                gradesData[studentName] = { marks, grade };
+            }
+            localStorage.setItem(storageKey, JSON.stringify(gradesData));
+            alert('Grades data saved locally.');
+        }
+
+        function showContainer(containerId) {
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => {
+                container.style.display = 'none';
+            });
+            document.getElementById(containerId).style.display = 'flex';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeGradebook('gradebook1', 'gradesData1');
+            initializeGradebook('gradebook2', 'gradesData2');
+            initializeGradebook('gradebook3', 'gradesData3');
+            initializeGradebook('gradebook4', 'gradesData4');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard Login</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: url("images/white.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+        }
+
+        .container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+            background-color: #218838;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .toggle-link {
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h1>DBATU Student Dashboard Login</h1>
+        <div id="login-error-message" class="error">Invalid email or password</div>
+        <form id="loginForm">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" name="email" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <span class="toggle-link" onclick="toggleForm('signup')">Sign Up</span></p>
+        <p><span class="toggle-link" onclick="toggleForm('forgot')">Forgot Password</span></p>
+    </div>
+
+    <div class="container" id="signup-container" style="display: none;">
+        <h2>Sign Up</h2>
+        <div id="signup-error-message" class="error">Error signing up</div>
+        <form id="signupForm">
+            <label for="signup-email">Email:</label>
+            <input type="email" id="signup-email" name="email" required>
+            <label for="signup-password">Password:</label>
+            <input type="password" id="signup-password" name="password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <span class="toggle-link" onclick="toggleForm('login')">Login</span></p>
+    </div>
+
+    <div class="container" id="forgot-container" style="display: none;">
+        <h2>Forgot Password</h2>
+        <div id="forgot-error-message" class="error">Email not found</div>
+        <form id="forgotForm">
+            <label for="forgot-email">Email:</label>
+            <input type="email" id="forgot-email" name="email" required>
+            <label for="new-password">New Password:</label>
+            <input type="password" id="new-password" name="password" required>
+            <button type="submit">Reset Password</button>
+        </form>
+        <p><span class="toggle-link" onclick="toggleForm('login')">Login</span></p>
+    </div>
+
+    <script>
+        function toggleForm(form) {
+            const loginContainer = document.getElementById('login-container');
+            const signupContainer = document.getElementById('signup-container');
+            const forgotContainer = document.getElementById('forgot-container');
+
+            loginContainer.style.display = 'none';
+            signupContainer.style.display = 'none';
+            forgotContainer.style.display = 'none';
+
+            if (form === 'login') {
+                loginContainer.style.display = 'block';
+            } else if (form === 'signup') {
+                signupContainer.style.display = 'block';
+            } else if (form === 'forgot') {
+                forgotContainer.style.display = 'block';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const storedEmail = localStorage.getItem('student-email');
+            const storedPassword = localStorage.getItem('student-password');
+
+            if (email === storedEmail && password === storedPassword) {
+                window.location.href = "index1.html";
+            } else {
+                document.getElementById('login-error-message').style.display = 'block';
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            if (email && password) {
+                localStorage.setItem('student-email', email);
+                localStorage.setItem('student-password', password);
+                alert('Sign up successful. Please login.');
+                toggleForm('login');
+            } else {
+                document.getElementById('signup-error-message').style.display = 'block';
+            }
+        });
+
+        document.getElementById('forgotForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('forgot-email').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            const storedEmail = localStorage.getItem('student-email');
+
+            if (email === storedEmail) {
+                localStorage.setItem('student-password', newPassword);
+                alert('Password reset successful. Please login with your new password.');
+                toggleForm('login');
+            } else {
+                document.getElementById('forgot-error-message').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="shortcut icon" href="./images/dbatu.jpg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo" title="DBATU University Management System">
+            <img src="./images/dbatu.jpg" alt="">
+            <h2>DB<span class="danger">A</span>TU</h2>
+        </div>
+        <div class="navbar">
+            <a href="index.html" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="timetable.html" onclick="timeTableAll()">
+                <span class="material-icons-sharp">today</span>
+                <h3>Time Table</h3>
+            </a> 
+            <a href="exam.html">
+                <span class="material-icons-sharp">grid_view</span>
+                <h3>Examination</h3>
+            </a>
+            <a href="password.html">
+                <span class="material-icons-sharp">password</span>
+                <h3>Change Password</h3>
+            </a>
+            <a href="student_login.html">
+                <span class="material-icons-sharp" onclick="logout()">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+        
+    </header>
+    <div class="container">
+        <aside>
+            <div class="profile">
+                <div class="top">
+                    <div class="profile-photo">
+                        <img src="./images/profile-2.jpeg" alt="">
+                    </div>
+                    <div class="info">
+                        <p>Hey, <b>Yash</b> </p>
+                        <small class="text-muted">5040</small>
+                    </div>
+                </div>
+                <div class="about">
+                    <h5>Course:</h5>
+                    <p>BTech. Computer Science & Engineering</p>
+                    <h5>DOB:</h5>
+                    <p>29-Feb-2020</p>
+                    <h5>Contact No:</h5>
+                    <p>9095215596</p>
+                    <h5>Email ID:</h5>
+                    <p>abcd@gmail.com</p>
+                    <h5>Address:</h5>
+                    <p>Ghost town Road, lonere,raigad</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <!-- Modal for detailed attendance -->
+<div id="attendance-modal" class="modal">
+    <div class="modal-content">
+        <span class="closeBtn">&times;</span>
+        <h2>Attendance Details</h2>
+        <div class="attendance-details"></div>
+    </div>
+</div>
+
+            <div class="subjects">
+                <div class="eg">
+                    <span class="material-icons-sharp">architecture</span>
+                    <h3>Engineering Graphics</h3>
+                    <h2 data-attendance="12/20"></h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p></p></div>
+                    </div>
+                    <small class="text-muted">Last week</small>
+                </div>
+                <div class="mth">
+                    <span class="material-icons-sharp">functions</span>
+                    <h3>Mathematical Engineering</h3>
+                    <h2 data-attendance="10/20"></h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p></p></div>
+                    </div>
+                    <small class="text-muted">Last week</small>
+                </div>
+                <div class="cs">
+                    <span class="material-icons-sharp">computer</span>
+                    <h3>Computer Architecture</h3>
+                    <h2 data-attendance="14/20"></h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p></p></div>
+                    </div>
+                    <small class="text-muted">Last week</small>
+                </div>
+                <div class="cg">
+                    <span class="material-icons-sharp">dns</span>
+                    <h3>Database Management</h3>
+                    <h2 data-attendance="16/20"></h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p></p></div>
+                    </div>
+                    <small class="text-muted">Last week</small>
+                </div>
+                <div class="net">
+                    <span class="material-icons-sharp">router</span>
+                    <h3>Network Security</h3>
+                    <h2 data-attendance="12/20">25/27</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p></p></div>
+                    </div>
+                    <small class="text-muted">Last week</small>
+                </div>
+            </div>
+
+            <div class="timetable" id="timetable">
+                <div>
+                    <span id="prevDay">&lt;</span>
+                    <h2>Today's Timetable</h2>
+                    <span id="nextDay">&gt;</span>
+                </div>
+                <span class="closeBtn" onclick="timeTableAll()">X</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Room No.</th>
+                            <th>Subject</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+
+        <div class="right">
+            <div class="announcements">
+                <h2>Announcements</h2>
+                <div class="updates" id="announcements-container">
+                    <!-- Announcements will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div class="leaves">
+                <h2>Teachers on leave</h2>
+                <div class="teacher">
+                    <div class="profile-photo"><img src="./images/profile-4.jpg" alt=""></div>
+                    <div class="info">
+                        <h3>Tejas Sir</h3>
+                        <small class="text-muted">Full Day</small>
+                    </div>
+                </div>
+                <div class="teacher">
+                    <div class="profile-photo"><img src="./images/profile-3.jpg" alt=""></div>
+                    <div class="info">
+                        <h3>Manoj Sir</h3>
+                        <small class="text-muted">Half Day</small>
+                    </div>
+                </div>
+                <div class="teacher">
+                    <div class="profile-photo"><img src="./images/profile-5.jpg" alt=""></div>
+                    <div class="info">
+                        <h3>Himanshu sir</h3>
+                        <small class="text-muted">Full Day</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Calculate attendance percentages
+            const subjects = document.querySelectorAll('.subjects > div');
+            subjects.forEach(subject => {
+                const attendanceText = subject.querySelector('h2').getAttribute('data-attendance');
+                const [attended, total] = attendanceText.split('/').map(Number);
+                const percentage = Math.round((attended / total) * 100);
+                subject.querySelector('h2').textContent = attendanceText;
+                subject.querySelector('.number p').textContent = percentage + '%';
+    
+                // Add click event listener for detailed attendance view
+                subject.addEventListener('click', function() {
+                    showAttendanceDetails(subject.querySelector('h3').textContent, attendanceText);
+                });
+            });
+    
+            // Announcements data
+            const announcements = [
+                { category: "Academic", message: "Summer training internship with Live Projects.", time: "2 Minutes Ago" },
+                { category: "Co-curricular", message: "Global internship opportunity by Student organization.", time: "10 Minutes Ago" },
+                { category: "Examination", message: "Instructions for Mid Term Examination.", time: "Yesterday" },
+                { category: "Sports", message: "Inter-college football tournament next week.", time: "2 Days Ago" },
+                { category: "Library", message: "New arrivals in the library this month.", time: "3 Days Ago" },
+                { category: "Seminar", message: "Guest lecture on AI and Machine Learning tomorrow.", time: "5 Minutes Ago" },
+                { category: "Workshop", message: "Robotics workshop for beginners this weekend.", time: "1 Hour Ago" }
+            ];
+    
+            // Function to shuffle array
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+    
+            // Shuffle and select a few announcements
+            const shuffledAnnouncements = shuffle([...announcements]).slice(0, 3);
+    
+            // Display announcements
+            const announcementsContainer = document.getElementById('announcements-container');
+            announcementsContainer.innerHTML = '';
+            shuffledAnnouncements.forEach(announcement => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.innerHTML = `<p><b>${announcement.category}</b> ${announcement.message}</p><small class="text-muted">${announcement.time}</small>`;
+                announcementsContainer.appendChild(messageDiv);
+            });
+    
+            // Show attendance details in modal
+            function showAttendanceDetails(subject, attendance) {
+                const modal = document.getElementById('attendance-modal');
+                const attendanceDetails = document.querySelector('.attendance-details');
+                attendanceDetails.innerHTML = `
+                    <h3>${subject}</h3>
+                    <p>Attendance: ${attendance}</p>
+                    <p>MONDAY: Present</p>
+                    <p>TUESDAY: Absent</p>
+                    <p>WEDNESDAY: Present</p>
+                    <p>FRIDAY: Present</p>
+                    <!-- Add more details as needed -->
+                `;
+                modal.style.display = "block";
+            }
+    
+            // Close modal
+            document.querySelector('.closeBtn').addEventListener('click', function() {
+                document.getElementById('attendance-modal').style.display = "none";
+            });
+    
+            // Close modal when clicking outside of the modal content
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('attendance-modal');
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    
+        function logout() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+            window.location.href = 'login1.html';
+        }
+    </script>
+    
+    <script src="timeTable.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <link rel="shortcut icon" href="./images/dbatu.jpg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #f8f9fa, #e0e0e0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 100px;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background-color: #eaedf0;
+            padding:  0px;
+            color: #343a40;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .logo h2 {
+            margin: 0;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+        .navbar a {
+            color: #343a40;
+            text-decoration: none;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        .navbar a:hover,
+        .navbar a.active {
+            background-color: #495057;
+            border-radius: 5px;
+            color: white;
+        }
+        .navbar a span {
+            margin-right: 5px;
+        }
+        .year-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .year-buttons button {
+            padding: 20px 40px;
+            margin: 0 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .year-buttons button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            margin: 20px auto;
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .container.active {
+            display: flex;
+            opacity: 1;
+            visibility: visible;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        tr:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button.present {
+            background-color: #28a745;
+            color: white;
+        }
+        button.present:hover {
+            background-color: #218838;
+        }
+        button.absent {
+            background-color: #dc3545;
+            color: white;
+        }
+        button.absent:hover {
+            background-color: #c82333;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        .theme-toggler {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .theme-toggler span {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" title="DBATU University Management System">
+            <img src="./images/dbatu.jpg" alt="DBATU Logo">
+            <h2>DB<span class="danger">A</span>TU</h2>
+        </div>
+        <div class="navbar">
+            <a href="index2.html">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="classroom.html" >
+                <span class="material-icons-sharp">class</span>
+                <h3>Classroom</h3>
+            </a>
+            <a href="gradebook.html">
+                <span class="material-icons-sharp">grade</span>
+                <h3>Gradebook</h3>
+            </a>
+            <a href="attendance.html"class="active">
+                <span class="material-icons-sharp">assignment_turned_in</span>
+                <h3>Attendance</h3>
+            </a>
+            <a href="tlogin.html">
+                <span class="material-icons-sharp" onclick="logout()">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+    </header>
+    
+    <div class="year-buttons">
+        <button onclick="showYear('year1')">1st Year</button>
+        <button onclick="showYear('year2')">2nd Year</button>
+        <button onclick="showYear('year3')">3rd Year</button>
+        <button onclick="showYear('year4')">4th Year</button>
+    </div>
+
+    <div id="year1" class="container">
+        <h1>Attendance - 1st Year</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th> <th>Attendance</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook1">
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+        <button class="submit-btn" onclick="submitAttendance('year1')">Submit</button>
+    </div>
+
+    <div id="year2" class="container">
+        <h1>Attendance - 2nd Year</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Attendance</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook2">
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+        <button class="submit-btn" onclick="submitAttendance('year2')">Submit</button>
+    </div>
+
+    <div id="year3" class="container">
+        <h1>Attendance - 3rd Year</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Attendance</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook3">
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+        <button class="submit-btn" onclick="submitAttendance('year3')">Submit</button>
+    </div>
+
+    <div id="year4" class="container">
+        <h1>Attendance - 4th Year</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Attendance</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody id="gradebook4">
+                <!-- Rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+        <button class="submit-btn" onclick="submitAttendance('year4')">Submit</button>
+    </div>
+
+    <script>
+        const students = [
+            'Siddharth Pandere',
+            'Yash Joshi',
+            'Sunil Chetri',
+            'Aditya Bhosale',
+            'Eva Green',
+            'Frank Miller',
+            'Grace Lee',
+            'Henry Clark',
+            'Isabel Turner',
+            'Jack Black'
+        ];
+
+        const subjects = {
+            year1: ['Mathematics'],
+            year2: ['Data Structures'],
+            year3: ['Computer Networks'],
+            year4: ['Machine Learning'],
+        };
+
+        const attendanceData = JSON.parse(localStorage.getItem('attendanceData')) || {};
+
+        function createAttendanceTable(year) {
+            const gradebook = document.getElementById(`gradebook${year.slice(-1)}`);
+            gradebook.innerHTML = '';
+
+            students.forEach(student => {
+                const row = document.createElement('tr');
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = student;
+                row.appendChild(nameCell);
+
+                const attendanceCell = document.createElement('td');
+                const status = attendanceData[year]?.[student] || 'None';
+                attendanceCell.setAttribute('data-status', status);
+                attendanceCell.textContent = status;
+
+                const presentButton = document.createElement('button');
+                presentButton.textContent = 'Present';
+                presentButton.className = 'present';
+                presentButton.onclick = () => markAttendance(attendanceCell, 'Present');
+
+                const absentButton = document.createElement('button');
+                absentButton.textContent = 'Absent';
+                absentButton.className = 'absent';
+                absentButton.onclick = () => markAttendance(attendanceCell, 'Absent');
+
+                attendanceCell.appendChild(presentButton);
+                attendanceCell.appendChild(absentButton);
+                row.appendChild(attendanceCell);
+
+                const subjectCell = document.createElement('td');
+                const subjectSelect = document.createElement('select');
+                subjects[year].forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    subjectSelect.appendChild(option);
+                });
+                subjectCell.appendChild(subjectSelect);
+                row.appendChild(subjectCell);
+
+                gradebook.appendChild(row);
+            });
+        }
+
+        function markAttendance(cell, status) {
+            cell.setAttribute('data-status', status);
+            cell.firstChild.nodeValue = status;
+        }
+
+        function submitAttendance(year) {
+            const rows = document.getElementById(`gradebook${year.slice(-1)}`).getElementsByTagName('tr');
+            const yearAttendanceData = {};
+
+            for (const row of rows) {
+                const studentName = row.cells[0].textContent;
+                const status = row.cells[1].getAttribute('data-status');
+                yearAttendanceData[studentName] = status;
+            }
+
+            attendanceData[year] = yearAttendanceData;
+            localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
+            alert('Attendance data saved locally.');
+        }
+
+        function showYear(year) {
+            document.querySelectorAll('.container').forEach(container => {
+                container.style.display = 'none';
+                container.classList.remove('active');
+            });
+            const yearContainer = document.getElementById(year);
+            yearContainer.style.display = 'flex';
+            yearContainer.classList.add('active');
+            createAttendanceTable(year);
+        }
+    </script>
+</body>
+</html>
